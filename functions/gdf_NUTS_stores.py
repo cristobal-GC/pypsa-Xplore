@@ -38,9 +38,9 @@ def gdf_NUTS_stores(carrier, n, gdf_regions, gdf_NUTS):
     intersected = gpd.overlay(gdf_network, gdf_NUTS, how='intersection')
     
     # Get intersected area
-    intersected['area_intersection'] = intersected.geometry.area
+    intersected['area_intersection'] = intersected.geometry.area/1e6
     # Get p_nom_NUTS according to percentage of intersected areas
-    intersected['e_nom_opt_NUTS'] = intersected['e_nom_opt'] * (intersected['area_intersection'] / intersected['area']/1e6) # 'area' refers to Voronoi cell
+    intersected['e_nom_opt_NUTS'] = intersected['e_nom_opt'] * (intersected['area_intersection'] / intersected['area']) # 'area' refers to Voronoi cell
 
     df_e_nom_opt_NUTS = intersected.groupby('NUTS_ID')['e_nom_opt_NUTS'].sum().reset_index()
 

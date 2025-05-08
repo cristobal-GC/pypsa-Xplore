@@ -39,9 +39,9 @@ def gdf_NUTS_loadst_pset(n, gdf_regions, gdf_NUTS):
     intersected = gpd.overlay(gdf_network, gdf_NUTS, how='intersection')
     
     # Get intersected area
-    intersected['area_intersection'] = intersected.geometry.area
+    intersected['area_intersection'] = intersected.geometry.area/1e6
     # Get annual_load_NUTS according to percentage of intersected areas
-    intersected['annual_load_NUTS'] = intersected['annual_load'] * (intersected['area_intersection'] / intersected['area']/1e6) # 'area' refers to Voronoi cell
+    intersected['annual_load_NUTS'] = intersected['annual_load'] * (intersected['area_intersection'] / intersected['area']) # 'area' refers to Voronoi cell
 
     df_annual_load_NUTS = intersected.groupby('NUTS_ID')['annual_load_NUTS'].sum().reset_index()
     
@@ -51,7 +51,9 @@ def gdf_NUTS_loadst_pset(n, gdf_regions, gdf_NUTS):
    
     # Add more columns
     gdf['annual_load_density_NUTS'] = gdf['annual_load_NUTS'] / gdf['area_NUTS']
-    
+   # Put in GWh/km2
+    gdf['annual_load_density_NUTS'] = gdf['annual_load_density_NUTS']*1e3
+
     gdf = gdf.to_crs('4036')
 
 

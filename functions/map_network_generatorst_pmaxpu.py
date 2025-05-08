@@ -4,7 +4,7 @@ from .gdf_network_generatorst_pmaxpu import gdf_network_generatorst_pmaxpu
 
 
 
-def map_network_generatorst_pmaxpu(carrier, n, feature, ax, gdf_regions, params, params_local):
+def map_network_generatorst_pmaxpu(carrier, n, feature, ax, gdf_regions, params, params_local, gen_class=0):
     """
     This function plots generation_t features based on p_max_pu for a specific carrier
     in the geometry of a network.
@@ -13,7 +13,7 @@ def map_network_generatorst_pmaxpu(carrier, n, feature, ax, gdf_regions, params,
       - CF					: Annual capacity factor [-]  
     """
 
-    gdf = gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions)
+    gdf = gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class)
 
 
 

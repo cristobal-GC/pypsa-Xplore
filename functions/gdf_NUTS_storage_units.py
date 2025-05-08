@@ -42,13 +42,13 @@ def gdf_NUTS_storage_units(carrier, n, gdf_regions, gdf_NUTS):
     intersected = gpd.overlay(gdf_network, gdf_NUTS, how='intersection')
     
     # Get intersected area
-    intersected['area_intersection'] = intersected.geometry.area
+    intersected['area_intersection'] = intersected.geometry.area/1e6
     # Get p_nom_NUTS according to percentage of intersected areas
-    intersected['p_nom_NUTS'] = intersected['p_nom'] * (intersected['area_intersection'] / intersected['area']/1e6) # 'area' refers to Voronoi cell
+    intersected['p_nom_NUTS'] = intersected['p_nom'] * (intersected['area_intersection'] / intersected['area']) # 'area' refers to Voronoi cell
     # Get p_nom_opt_NUTS according to percentage of intersected areas
-    intersected['p_nom_opt_NUTS'] = intersected['p_nom_opt'] * (intersected['area_intersection'] / intersected['area']/1e6) # 'area' refers to Voronoi cell0
+    intersected['p_nom_opt_NUTS'] = intersected['p_nom_opt'] * (intersected['area_intersection'] / intersected['area']) # 'area' refers to Voronoi cell0
     # Get max_hours_NUTS according to percentage of intersected areas
-    intersected['max_hours_NUTS'] = intersected['max_hours'] * (intersected['area_intersection'] / intersected['area']/1e6) # 'area' refers to Voronoi cell0
+    intersected['max_hours_NUTS'] = intersected['max_hours'] * (intersected['area_intersection'] / intersected['area']) # 'area' refers to Voronoi cell0
 
     df_p_nom_NUTS = intersected.groupby('NUTS_ID')['p_nom_NUTS'].sum().reset_index()
     df_p_nom_opt_NUTS = intersected.groupby('NUTS_ID')['p_nom_opt_NUTS'].sum().reset_index()
