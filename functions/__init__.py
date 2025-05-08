@@ -20,6 +20,8 @@ from .map_add_features import map_add_features
 
 from .map_add_region import map_add_region
 
+from .map_databundle_h2_salt_caverns import map_databundle_h2_salt_caverns
+
 from .map_network_generators import map_network_generators
 from .map_network_generatorst_pmaxpu import map_network_generatorst_pmaxpu
 from .map_network_links import map_network_links
