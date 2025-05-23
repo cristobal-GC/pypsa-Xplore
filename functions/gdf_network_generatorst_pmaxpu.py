@@ -10,6 +10,8 @@ def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class):
     This function provides a gdf of a network with some generation_t features
     for a specific carrier.
 
+    For some carriers (renewables), there are classes.
+
     An appropriate region file is required.
 
     Columns:
@@ -22,8 +24,8 @@ def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class):
     The gdf is provided in Plate Carrée crs('4036')    
     """
 
-    ##### Get df with geerationt_pmaxpu info
-    ggt_pmaxpu = n.generators_t['p_max_pu']
+    ##### Get df with generationt_pmaxpu info, and for the selected carrier
+    ggt_pmaxpu = n.generators_t['p_max_pu'].filter(like=carrier, axis=1)
     df = ggt_pmaxpu.mean().to_frame(name='CF') 
    
     # Use multi-index with 'bus' and 'carrier'
@@ -42,9 +44,8 @@ def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class):
 
     # filter carrier (and class, for wind, solar)
     if ('wind' in carrier or 'solar' in carrier):
-        df = df[(df['carrier']==carrier) & (df['gen_class']==gen_class)]
-    else:
-        df = df[df['carrier']==carrier]
+        df = df[df['gen_class']==gen_class]
+  
         
 
 
