@@ -31,9 +31,10 @@ def gdf_network_stores(carrier, n, gdf_regions):
     df = df[['carrier', 'bus', 'e_nom_opt']]
     # Put in GWh
     df['e_nom_opt'] = df['e_nom_opt'].div(1e3)
-    # place 'bus' in 'bus_original', and create 'bus'
+    # place 'bus' in 'bus_original', and create 'bus' from column index and removing white space + carrier
+    # this is to have the samen bus names as in the gdf_regions
     df.rename(columns={'bus': 'bus_original'}, inplace=True)
-    df['bus'] = df['bus_original'].apply(lambda x: ' '.join(x.split()[:2]))
+    df['bus'] = df.index.to_series().apply(lambda x: x.replace(' '+carrier,''))
 
 
 

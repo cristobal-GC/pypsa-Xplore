@@ -37,14 +37,9 @@ def gdf_network_storage_units(carrier, n, gdf_regions):
 
     ##### Get gdf0 with regions 
     gdf0 = gdf_regions.copy()
-
     gdf0.rename(columns={'name': 'bus'}, inplace=True)
-
-
-    ##### Select just some columns
+    # Select just some columns
     gdf0 = gdf0[['bus', 'geometry']]
-
-
     # Add area [km2]
     gdf0_area = gdf0.to_crs(3035)
     gdf0['area'] = gdf0_area.area/1e6
