@@ -46,6 +46,11 @@ map_network_generatorst_pmaxpu:
   edgecolor: black
   lw: 0.2
 
+map_network_generatorst_p:
+  cmap: viridis
+  edgecolor: black
+  lw: 0.2
+
 map_network_links:
   cmap: Reds
   edgecolor: black

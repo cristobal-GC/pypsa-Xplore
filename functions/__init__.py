@@ -4,6 +4,7 @@ from .df_network_capacities import df_network_capacities
 
 from .gdf_network_generators import gdf_network_generators
 from .gdf_network_generatorst_pmaxpu import gdf_network_generatorst_pmaxpu
+from .gdf_network_generatorst_p import gdf_network_generatorst_p
 from .gdf_network_links import gdf_network_links
 from .gdf_network_loadst_pset import gdf_network_loadst_pset
 from .gdf_network_storage_units import gdf_network_storage_units
@@ -24,6 +25,7 @@ from .map_databundle_h2_salt_caverns import map_databundle_h2_salt_caverns
 
 from .map_network_generators import map_network_generators
 from .map_network_generatorst_pmaxpu import map_network_generatorst_pmaxpu
+from .map_network_generatorst_p import map_network_generatorst_p
 from .map_network_links import map_network_links
 from .map_network_loadst_pset import map_network_loadst_pset
 from .map_network_storage_units import map_network_storage_units
