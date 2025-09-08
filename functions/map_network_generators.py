@@ -4,7 +4,7 @@ from .gdf_network_generators import gdf_network_generators
 
 
 
-def map_network_generators(carrier, n, feature, ax, gdf_regions, params, params_local):
+def map_network_generators(carrier, n, feature, ax, gdf_regions, resource_class, params, params_local):
     """
     This function plots generation features for a specific carrier
     in the geometry of a network.
@@ -21,7 +21,7 @@ def map_network_generators(carrier, n, feature, ax, gdf_regions, params, params_
       - p_nom_opt_max_ratio : ration between p_nom_opt and p_nom_max [-]
     """
 
-    gdf = gdf_network_generators(carrier, n, gdf_regions)
+    gdf = gdf_network_generators(carrier, n, gdf_regions, resource_class)
 
 
 

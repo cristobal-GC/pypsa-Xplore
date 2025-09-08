@@ -5,12 +5,12 @@ import geopandas as gpd
 
 
 
-def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class):
+def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, resource_class):
     """
-    This function provides a gdf of a network with some generation_t features
+    This function provides a gdf of a network with some generation_t features based on p_max_pu (potential generation)
     for a specific carrier.
 
-    For some carriers (renewables), there are classes.
+    For solar and wind carriers, there are classes.
 
     An appropriate region file is required.
 
@@ -34,7 +34,7 @@ def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class):
     if ('wind' in carrier or 'solar' in carrier):        
         split_index = df.index.to_series().str.rsplit(' ', n=2, expand=True)
         df['bus'] = split_index[0].values
-        df['gen_class'] = split_index[1].astype(int) # gen_class as integer
+        df['resource_class'] = split_index[1].astype(int) # resource_class as integer
         df['carrier'] = split_index[2].values
     else:
         split_index = df.index.to_series().str.rsplit(' ', n=1, expand=True)
@@ -44,7 +44,7 @@ def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, gen_class):
 
     # filter carrier (and class, for wind, solar)
     if ('wind' in carrier or 'solar' in carrier):
-        df = df[df['gen_class']==gen_class]
+        df = df[df['resource_class']==resource_class]
   
         
 

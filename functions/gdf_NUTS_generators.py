@@ -6,7 +6,7 @@ import geopandas as gpd
 from .gdf_network_generators import gdf_network_generators
 
 
-def gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS):
+def gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS, resource_class):
     """
     This function provides a gdf of a network with some generation features 
     aggregated at NUTS level for a specific carrier.
@@ -29,7 +29,7 @@ def gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS):
     The gdf is provided in Plate Carrée crs('4036')    
     """
 
-    gdf_network = gdf_network_generators(carrier, n, gdf_regions)
+    gdf_network = gdf_network_generators(carrier, n, gdf_regions, resource_class)
     gdf_network = gdf_network.to_crs('3035')
 
 

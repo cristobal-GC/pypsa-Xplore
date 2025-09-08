@@ -4,7 +4,7 @@ from .gdf_NUTS_generators import gdf_NUTS_generators
 
 
 
-def map_NUTS_generators(carrier, n, feature, ax, gdf_regions, gdf_NUTS, params, params_local):
+def map_NUTS_generators(carrier, n, feature, ax, gdf_regions, gdf_NUTS, resource_class, params, params_local):
     """
     This function plots a generation features for a specific carrier
     aggregated to NUTS level.
@@ -21,7 +21,7 @@ def map_NUTS_generators(carrier, n, feature, ax, gdf_regions, gdf_NUTS, params, 
       - p_nom_opt_max_ratio_NUTS : ration between p_nom_opt_NUTS and p_nom_max_NUTS [-]
     """
 
-    gdf = gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS)
+    gdf = gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS, resource_class)
 
 
 
