@@ -27,26 +27,26 @@ def gdf_network_generatorst_p(carrier, n, gdf_regions, resource_class):
     ##### Get df with generationt_p info, and for the selected carrier
     ggt_p = n.generators_t['p'].filter(like=carrier, axis=1)
     df = ggt_p.sum().to_frame(name='AEP').div(1e6)   # TWh 
+    # Add bus column taken from n.generators
+    df['bus'] = n.generators.loc[df.index]['bus']
    
-    # Use multi-index with 'bus' and 'carrier'
-    # Note that the index for onwind, solar is 'bus-class-carrier'
-    # while for the rest is just 'bus-carrier'
-    if ('wind' in carrier or 'solar' in carrier):        
-        split_index = df.index.to_series().str.rsplit(' ', n=2, expand=True)
-        df['bus'] = split_index[0].values
-        df['resource_class'] = split_index[1].astype(int) # resource_class as integer
-        df['carrier'] = split_index[2].values
-    else:
-        split_index = df.index.to_series().str.rsplit(' ', n=1, expand=True)
-        df['bus'] = split_index[0].values
-        df['carrier'] = split_index[1].values
-
-
-    # filter carrier (and class, for wind, solar)
+    ##### Modifications to addapt renewable classes (only for onwind, offwind-float, offwind-ac, offwind-dc, solar, solar-hsat
     if ('wind' in carrier or 'solar' in carrier):
-        df = df[df['resource_class']==resource_class]
-  
-        
+        ## If class was defined, filter only rows with this class
+        if isinstance(resource_class, int):
+            ### Define index pattern (ends in '... resource_class carrier')
+            pat = fr"\b{resource_class}\s+{carrier}$"
+            ### Filter to keep only this class
+            df = df[df.index.str.contains(pat, regex=True)]
+        ## If 'all' classes was defined, add rows by bus, and re-build the dataframe to fit the required columns
+        elif resource_class == 'all':
+            df = df.groupby("bus", as_index=False)[["AEP"]].sum()
+            df['carrier'] = carrier
+            df.index = df["bus"] + " " + df["carrier"]
+            df.index.name = 'Generator'
+        else:
+            raise ValueError(f"Incorrect value for 'resource_class'")
+
 
 
     ##### Get gdf0 with regions 

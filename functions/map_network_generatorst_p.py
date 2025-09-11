@@ -4,16 +4,16 @@ from .gdf_network_generatorst_p import gdf_network_generatorst_p
 
 
 
-def map_network_generatorst_p(carrier, n, feature, ax, gdf_regions, params, params_local, gen_class=0):
+def map_network_generatorst_p(carrier, n, feature, ax, gdf_regions, resource_class, params, params_local):
     """
     This function plots generation_t features based on p (after dispatch) for a specific carrier
     in the geometry of a network.
 
     Features:
-      - AEP					: Annual Energy Production [TWh]  
+      - AEP                 : Annual Energy Production [TWh]  
     """
 
-    gdf = gdf_network_generatorst_p(carrier, n, gdf_regions, gen_class)
+    gdf = gdf_network_generatorst_p(carrier, n, gdf_regions, resource_class)
 
 
 

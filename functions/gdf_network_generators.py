@@ -37,14 +37,14 @@ def gdf_network_generators(carrier, n, gdf_regions, resource_class):
     df = df[['carrier', 'bus', 'p_nom', 'p_nom_max', 'p_nom_opt']]
 
     ##### Modifications to addapt renewable classes (only for onwind, offwind-float, offwind-ac, offwind-dc, solar, solar-hsat
-    if carrier in ['onwind', 'offwind-float', 'offwind-ac', 'offwind-dc', 'solar', 'solar-hsat']:
+    if ('wind' in carrier or 'solar' in carrier):
         ## If class was defined, filter only rows with this class
         if isinstance(resource_class, int):
             ### Define index pattern (ends in '... resource_class carrier')
             pat = fr"\b{resource_class}\s+{carrier}$"
             ### Filter to keep only this class
             df = df[df.index.str.contains(pat, regex=True)]
-        ## If all classes was defined, add rows by bus, and re-build the dataframe to fit the required columns
+        ## If 'all' classes was defined, add rows by bus, and re-build the dataframe to fit the required columns
         elif resource_class == 'all':
             df = df.groupby("bus", as_index=False)[["p_nom", "p_nom_max", "p_nom_opt"]].sum()
             df['carrier'] = carrier

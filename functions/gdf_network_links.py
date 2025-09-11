@@ -12,9 +12,12 @@ def gdf_network_links(carrier, n, gdf_regions):
       - CCGT
       - OCGT
       - H2 Electrolysis
+      - H2 electrolysis
       - H2 Fuel Cell
+      - H2 fuel cell
       - battery charger
       - battery discharger
+      - H2 turbine
 
     An appropriate region file is required.
 
@@ -42,11 +45,11 @@ def gdf_network_links(carrier, n, gdf_regions):
     df = df[['carrier', 'bus0', 'bus1', 'efficiency', 'p_nom', 'p_nom_opt']]
     # add column 'bus' according to the link direction for the selected carrier. 
     # Also, create column 'p_nom_e' and 'p_nom_e_opt' for electric capacity.
-    if carrier in ['CCGT', 'OCGT', 'H2 Fuel Cell', 'battery discharger']:
+    if carrier in ['CCGT', 'OCGT', 'H2 Fuel Cell', 'H2 fuel cell', 'battery discharger', 'H2 turbine']:
         df['bus'] = df['bus1']
         df['p_nom_e'] = df['p_nom']*df['efficiency']
         df['p_nom_e_opt'] = df['p_nom_opt']*df['efficiency']
-    if carrier in ['H2 Electrolysis', 'battery charger']:
+    if carrier in ['H2 Electrolysis', 'H2 electrolysis', 'battery charger']:
         df['bus'] = df['bus0']
         df['p_nom_e'] = df['p_nom']
         df['p_nom_e_opt'] = df['p_nom_opt']
