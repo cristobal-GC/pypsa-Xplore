@@ -41,4 +41,9 @@ from .map_NUTS_stores import map_NUTS_stores
 from .xd_set_capacities import xd_set_capacities
 from .xd_csv_prices import xd_csv_prices
 
+from .notebook_common import read_params
+from .notebook_common import load_regions
+from .notebook_common import load_nuts
+from .notebook_common import load_network
+
 
