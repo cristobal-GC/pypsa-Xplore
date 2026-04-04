@@ -22,7 +22,7 @@ def gdf_NUTS_links(carrier, n, gdf_regions, gdf_NUTS):
       - p_nom_e_NUTS             : installed capacity [MW] (includes link efficiency if required)
       - p_nom_e_opt_NUTS         : optimal capacity [MW] (includes link efficiency if required)
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     gdf_network = gdf_network_links(carrier, n, gdf_regions)
@@ -65,7 +65,7 @@ def gdf_NUTS_links(carrier, n, gdf_regions, gdf_NUTS):
 
 
     
-    gdf = gdf.to_crs('4036')
+    gdf = gdf.to_crs('4326')
 
 
 

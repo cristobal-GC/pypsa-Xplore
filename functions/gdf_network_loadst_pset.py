@@ -19,7 +19,7 @@ def gdf_network_loadst_pset(n, gdf_regions):
       - annual_load         : [TWh]
       - annual_load_density : [GWh/km2]      
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     ##### Get df with load info

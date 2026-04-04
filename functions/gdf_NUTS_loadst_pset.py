@@ -20,7 +20,7 @@ def gdf_NUTS_loadst_pset(n, gdf_regions, gdf_NUTS):
       - annual_load_NUTS         : [TWh]
       - annual_load_density_NUTS : [GWh/km2]      
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     gdf_network = gdf_network_loadst_pset(n, gdf_regions)
@@ -54,7 +54,7 @@ def gdf_NUTS_loadst_pset(n, gdf_regions, gdf_NUTS):
    # Put in GWh/km2
     gdf['annual_load_density_NUTS'] = gdf['annual_load_density_NUTS']*1e3
 
-    gdf = gdf.to_crs('4036')
+    gdf = gdf.to_crs('4326')
 
 
 

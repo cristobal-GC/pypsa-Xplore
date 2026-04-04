@@ -26,7 +26,7 @@ def gdf_network_generators(carrier, n, gdf_regions, resource_class):
       - p_nom_opt_density   : ratio between p_nom_opt and area [MW/km2]
       - p_nom_opt_max_ratio : ration between p_nom_opt and p_nom_max [-]
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     ##### Get df with generators info

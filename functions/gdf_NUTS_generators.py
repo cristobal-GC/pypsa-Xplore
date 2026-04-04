@@ -26,7 +26,7 @@ def gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS, resource_class):
       - p_nom_opt_density_NUTS   : ratio between p_nom_opt_NUTS and area_NUTS [MW/km2]
       - p_nom_opt_max_ratio_NUTS : ration between p_nom_opt_NUTS and p_nom_max_NUTS [-]
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     gdf_network = gdf_network_generators(carrier, n, gdf_regions, resource_class)
@@ -70,7 +70,7 @@ def gdf_NUTS_generators(carrier, n, gdf_regions, gdf_NUTS, resource_class):
     gdf['p_nom_opt_density_NUTS'] = gdf['p_nom_opt_NUTS'] / gdf['area_NUTS']
     gdf['p_nom_opt_max_ratio_NUTS'] = gdf['p_nom_opt_NUTS'] / gdf['p_nom_max_NUTS']
     
-    gdf = gdf.to_crs('4036')
+    gdf = gdf.to_crs('4326')
 
 
 

@@ -22,18 +22,21 @@ def map_NUTS_links(carrier, n, feature, ax, gdf_regions, gdf_NUTS, params, param
 
 
     ##### Fix params_local
-    if params_local['vmin']=='':
-        params_local['vmin'] = gdf[feature].min()
+    vmin = params_local.get('vmin')
+    vmax = params_local.get('vmax')
 
-    if params_local['vmax']=='':
-        params_local['vmax'] = gdf[feature].max()
+    if vmin in (None, ''):
+        vmin = gdf[feature].min()
+
+    if vmax in (None, ''):
+        vmax = gdf[feature].max()
     
     
     
     ##### Plot in map
     gdf.plot(ax=ax, column=feature, 
              cmap=params['cmap'], edgecolor=params['edgecolor'], lw=params['lw'],
-             vmin=params_local['vmin'], vmax=params_local['vmax'], 
+             vmin=vmin, vmax=vmax, 
              legend=True)
 
 
