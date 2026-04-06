@@ -19,7 +19,7 @@ def gdf_NUTS_stores(carrier, n, gdf_regions, gdf_NUTS):
       - area_NUTS      
       - e_nom_opt_NUTS           : optimal energy capacity [GWh]
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     gdf_network = gdf_network_stores(carrier, n, gdf_regions)
@@ -49,7 +49,7 @@ def gdf_NUTS_stores(carrier, n, gdf_regions, gdf_NUTS):
     gdf = pd.merge(gdf_NUTS, df_e_nom_opt_NUTS, on='NUTS_ID')
 
    
-    gdf = gdf.to_crs('4036')
+    gdf = gdf.to_crs('4326')
 
 
 

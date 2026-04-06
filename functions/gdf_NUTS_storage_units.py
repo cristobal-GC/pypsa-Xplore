@@ -23,7 +23,7 @@ def gdf_NUTS_storage_units(carrier, n, gdf_regions, gdf_NUTS):
       - p_nom_opt_density_NUTS   : ratio between p_nom_opt and area [MW/km2]
       - max_hours_NUTS			 : ratio between energy store capacity and power capacity
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     gdf_network = gdf_network_storage_units(carrier, n, gdf_regions)
@@ -64,7 +64,7 @@ def gdf_NUTS_storage_units(carrier, n, gdf_regions, gdf_NUTS):
     gdf['p_nom_density_NUTS'] = gdf['p_nom_NUTS'] / gdf['area_NUTS']
     gdf['p_nom_opt_density_NUTS'] = gdf['p_nom_opt_NUTS'] / gdf['area_NUTS']
     
-    gdf = gdf.to_crs('4036')
+    gdf = gdf.to_crs('4326')
 
 
 

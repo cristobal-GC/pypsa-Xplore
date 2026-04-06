@@ -21,7 +21,7 @@ def gdf_network_generatorst_p(carrier, n, gdf_regions, resource_class):
       - area
       - AEP                  : Annual Energy Production [TWh]
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     ##### Get df with generationt_p info, and for the selected carrier

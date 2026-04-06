@@ -20,7 +20,7 @@ def gdf_network_stores(carrier, n, gdf_regions):
       - area
       - e_nom_opt       : optimal energy capacity [GWh]
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     ##### Get df with generators info

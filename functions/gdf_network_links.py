@@ -34,7 +34,7 @@ def gdf_network_links(carrier, n, gdf_regions):
       - p_nom_e     : installed capacity [MW] (includes link efficiency if required)
       - p_nom_e_opt : optimal capacity [MW] (includes link efficiency if required)
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     ##### Get df with generators info

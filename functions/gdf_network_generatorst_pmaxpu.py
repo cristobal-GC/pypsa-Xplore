@@ -21,7 +21,7 @@ def gdf_network_generatorst_pmaxpu(carrier, n, gdf_regions, resource_class):
       - area
       - CF                  : Annual capacity factor
 
-    The gdf is provided in Plate Carrée crs('4036')    
+    The gdf is provided in Plate Carrée crs('4326')    
     """
 
     ##### Get df with generationt_pmaxpu info, and for the selected carrier
