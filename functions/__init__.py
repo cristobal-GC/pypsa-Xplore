@@ -40,6 +40,7 @@ from .map_NUTS_stores import map_NUTS_stores
 
 from .xd_set_capacities import xd_set_capacities
 from .xd_csv_prices import xd_csv_prices
+from .get_ic_colors import get_ic_colors
 
 from .notebook_common import read_params
 from .notebook_common import load_regions
