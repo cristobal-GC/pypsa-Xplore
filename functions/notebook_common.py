@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 import geopandas as gpd
+import pandas as pd
 import pypsa
 import yaml
 
@@ -81,3 +82,25 @@ def load_network(
 
     network_path = base_dir / "networks" / filename
     return pypsa.Network(network_path)
+
+
+def load_file_csv(
+    params: dict,
+    filename: str,
+    prefix: str = "",
+    name: str = "",
+    location: str = "resources",
+    folder: str = "",
+    **read_csv_kwargs,
+) -> pd.DataFrame:
+    """Load a CSV file from <location>/<prefix>/<name>/<folder>/<filename>."""
+    base_dir = Path(params["rootpath"]) / location
+    if prefix:
+        base_dir = base_dir / prefix
+    if name:
+        base_dir = base_dir / name
+    if folder:
+        base_dir = base_dir / folder
+
+    csv_path = base_dir / filename
+    return pd.read_csv(csv_path, **read_csv_kwargs)

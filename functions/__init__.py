@@ -46,5 +46,6 @@ from .notebook_common import read_params
 from .notebook_common import load_regions
 from .notebook_common import load_nuts
 from .notebook_common import load_network
+from .notebook_common import load_file_csv
 
 
