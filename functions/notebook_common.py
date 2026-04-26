@@ -104,3 +104,25 @@ def load_file_csv(
 
     csv_path = base_dir / filename
     return pd.read_csv(csv_path, **read_csv_kwargs)
+
+
+def load_file_yaml(
+    params: dict,
+    filename: str,
+    prefix: str = "",
+    name: str = "",
+    location: str = "resources",
+    folder: str = "",
+) -> dict:
+    """Load a YAML file from <location>/<prefix>/<name>/<folder>/<filename>."""
+    base_dir = Path(params["rootpath"]) / location
+    if prefix:
+        base_dir = base_dir / prefix
+    if name:
+        base_dir = base_dir / name
+    if folder:
+        base_dir = base_dir / folder
+
+    yaml_path = base_dir / filename
+    with open(yaml_path, "r") as yaml_file:
+        return yaml.safe_load(yaml_file)
