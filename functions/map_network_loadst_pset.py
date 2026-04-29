@@ -4,7 +4,16 @@ from .gdf_network_loadst_pset import gdf_network_loadst_pset
 
 
 
-def map_network_loadst_pset(n, feature, ax, gdf_regions, params, params_local):
+def map_network_loadst_pset(
+    n,
+    feature,
+    ax,
+    gdf_regions,
+    params,
+    params_local,
+    load_patterns=None,
+    load_key=None,
+):
     """
     This function plots load features in the geometry of a network.
 
@@ -14,7 +23,12 @@ def map_network_loadst_pset(n, feature, ax, gdf_regions, params, params_local):
       - annual_load_density : [GWh/km2]      
     """
 
-    gdf = gdf_network_loadst_pset(n, gdf_regions)
+    gdf = gdf_network_loadst_pset(
+        n,
+        gdf_regions,
+        load_patterns=load_patterns,
+        load_key=load_key,
+    )
 
 
 

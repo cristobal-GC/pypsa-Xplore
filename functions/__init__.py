@@ -1,5 +1,7 @@
 
 from .df_network_capacities import df_network_capacities
+from .filter_columns import get_column_patterns
+from .filter_columns import filter_df_columns
 
 
 from .gdf_network_generators import gdf_network_generators
