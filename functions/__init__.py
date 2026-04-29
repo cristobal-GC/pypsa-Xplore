@@ -48,5 +48,6 @@ from .notebook_common import load_nuts
 from .notebook_common import load_network
 from .notebook_common import load_file_csv
 from .notebook_common import load_file_yaml
+from .notebook_common import save_figure
 
 

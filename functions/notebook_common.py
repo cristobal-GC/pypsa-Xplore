@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 import geopandas as gpd
+from matplotlib.axes import Axes
 import pandas as pd
 import pypsa
 import yaml
@@ -126,3 +127,55 @@ def load_file_yaml(
     yaml_path = base_dir / filename
     with open(yaml_path, "r") as yaml_file:
         return yaml.safe_load(yaml_file)
+
+
+def save_figure(
+    output_path: Optional[str] = None,
+    filename: str = "figure.png",
+    ax: Optional[Axes] = None,
+    dpi: int = 300,
+    bbox_inches: str = "tight",
+    create_dirs: bool = True,
+    **savefig_kwargs,
+) -> Path:
+    """Save a matplotlib figure with sensible defaults for notebooks.
+
+    Parameters
+    ----------
+    output_path : str, optional
+        Destination path (absolute or relative) for the exported figure.
+        If not provided, defaults to the project root folder (``pypsa-Xplore``).
+    filename : str, default "figure.png"
+        File name used when ``output_path`` is a directory path.
+    ax : matplotlib.axes.Axes, optional
+        Axes to save. If not provided, the current active figure is used.
+    dpi : int, default 300
+        Output image resolution.
+    bbox_inches : str, default "tight"
+        Bounding-box strategy passed to ``savefig``.
+    create_dirs : bool, default True
+        Create parent directories for ``output_path`` when needed.
+    **savefig_kwargs
+        Extra keyword arguments forwarded to ``figure.savefig``.
+    """
+    if ax is None:
+        import matplotlib.pyplot as plt
+
+        fig = plt.gcf()
+    else:
+        fig = ax.figure
+
+    default_root = Path(__file__).resolve().parent.parent
+    base_path = Path(output_path) if output_path is not None else default_root
+    destination = base_path if base_path.suffix else base_path / filename
+    if create_dirs:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+
+    fig.savefig(
+        destination,
+        dpi=dpi,
+        bbox_inches=bbox_inches,
+        **savefig_kwargs,
+    )
+
+    return destination
