@@ -92,6 +92,7 @@ def load_file_csv(
     name: str = "",
     location: str = "resources",
     folder: str = "",
+    skip_initial_lines: int = 0,
     **read_csv_kwargs,
 ) -> pd.DataFrame:
     """Load a CSV file from <location>/<prefix>/<name>/<folder>/<filename>."""
@@ -104,6 +105,9 @@ def load_file_csv(
         base_dir = base_dir / folder
 
     csv_path = base_dir / filename
+    if skip_initial_lines > 0 and "skiprows" not in read_csv_kwargs:
+        read_csv_kwargs["skiprows"] = skip_initial_lines
+
     return pd.read_csv(csv_path, **read_csv_kwargs)
 
 
