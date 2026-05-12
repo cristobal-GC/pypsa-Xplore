@@ -1,22 +1,11 @@
 # PyPSA-*X*plore
 
-**PyPSA-*X*plore** provides a collection of Jupyter notebooks for step-by-step analysis of results obtained with **PyPSA-*X*** models (e.g., *PyPSA-Spain*, *PyPSA-Eur*, etc.).  
-It is designed to help users explore, visualize, and understand model outputs in a structured and reproducible way.
+**PyPSA-*X*plore** is a collection of Jupyter notebooks for exploring and visualizing results from **PyPSA-*X*** models (e.g., *PyPSA-Spain*, *PyPSA-Eur*).
 
 
+## Installation
 
-## 🧭 Overview
-
-This repository contains:
-- Notebooks to explore results based on specific workflow rules.
-- Notebooks for Spain data analysis (relevant only for *PyPSA-Spain*).
-- Auxiliary Python functions that support data handling and visualization.
-
-
-
-## ⚙️ Installation
-
-Clone the repository or download it as a ZIP file:
+Clone the repository:
 
 ```bash
 git clone https://github.com/cristobal-GC/pypsa-Xplore
@@ -25,66 +14,48 @@ git clone https://github.com/cristobal-GC/pypsa-Xplore
 or [download the ZIP file](https://github.com/cristobal-GC/pypsa-Xplore/archive/refs/heads/main.zip) and extract it locally.
 
 
+## Usage
 
-
-## 🚀 Usage
-
-1. **Set up the path to your PyPSA-*X*** model:
-
-   Open the file [`params.yaml`](params.yaml) and edit the first field:
+1. Open [`params.yaml`](params.yaml) and set the path to your PyPSA-*X* model:
 
    ```yaml
-   rootpath: /path/to/your/PyPSA/model/
+   rootpath: /path/to/your/PyPSA-X/model/
    ```
 
-2. **Run the Jupyter notebooks:**
-
-   Use the same environment you used to run your **PyPSA-*X*** model.
-
-   Then open any notebook from the repository folders (see below).
+2. Open any notebook and run it. Using the same Python environment as your PyPSA-*X* model is recommended.
 
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 pypsa-Xplore/
 │
-├── Xplore_rules/        # Notebooks associated with specific PyPSA workflow rules
-│                        # (one notebook per rule, with the same name)
+├── Xplore_rules/              # Notebooks for main workflow rules (network building process)
+├── Xplore_rules_heating/      # Notebooks for heating sector rules
+├── Xplore_rules_sectors/      # Notebooks for multi-sector rules
+├── Xplore_rules_transport/    # Notebooks for transport sector rules
+├── Xplore_rules_shipping/     # Notebooks for shipping sector rules
+├── Xplore_rules_biomass/      # Notebooks for biomass sector rules
+├── Xplore_rules_industry/     # Notebooks for industry sector rules
+├── Xplore_data/               # Notebooks for data from PyPSA-Eur
+├── Xplore_data_ES/            # Notebooks for data from PyPSA-Spain
 │
-├── Xplore_data_ES/      # Notebooks for Spain data analysis (relevant only for PyPSA-Spain).
+├── functions/                 # Helper functions for data processing and visualization
 │
-├── functions/           # Auxiliary Python functions used in the notebooks
-│
-├── params.yaml          # File where you define your PyPSA model root path
-└── README.md            # This file
+└── params.yaml                # General parameters for PyPSA-Xplore
 ```
 
-### Folder details
-
-- **`Xplore_rules/`**  
-  Each notebook corresponds to a rule from the PyPSA model workflow.  
-  Fill in the **`parameters`** section with the same values used in the configuration file of the PyPSA-*X* model.
-  Some notebooks include extra parameter sections for customizing plots.
-
-- **`Xplore_data_ES/`**  
-  Contains notebooks for analyzing Spain-specific data (only relevant for *PyPSA-Spain*).
-
-- **`functions/`**  
-  Includes helper functions for data processing and visualization.  
-  Exploring this folder can be useful if you want to understand or extend **PyPSA-*X*plore**, though it’s not required for basic usage.
+Each notebook in `Xplore_rules*/` corresponds to a rule from the model workflow. Fill in the `parameters` section with the values from your PyPSA-*X* configuration file.
 
 
+## Contributing
 
-## 🤝 Contributing
-
-Contributions are welcome!  
+Contributions are welcome!
 If you’d like to improve or extend **PyPSA-*X*plore**, feel free to:
 - Open an issue to report a bug or suggest an enhancement.
 - Submit a pull request with your proposed changes.
 
-
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE) — feel free to use and modify it for your own research or projects.
 
