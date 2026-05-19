@@ -55,6 +55,26 @@ If you’d like to improve or extend **PyPSA-*X*plore**, feel free to:
 - Open an issue to report a bug or suggest an enhancement.
 - Submit a pull request with your proposed changes.
 
+### Notebook setup (required before committing `.ipynb` files)
+
+This repository uses [`nbstripout`](https://github.com/kynan/nbstripout) to keep Jupyter notebook outputs and execution metadata out of git history. The `*.ipynb filter=nbstripout` binding is already declared in [`.gitattributes`](.gitattributes), but the filter itself must be installed and activated **in each local clone** — otherwise notebooks will be committed with outputs and pollute the diff.
+
+From the root of your clone, run once:
+
+```bash
+pip install nbstripout       # or: conda install -c conda-forge nbstripout
+nbstripout --install         # registers the clean/smudge filter in this clone's .git/config
+```
+
+Verify with `nbstripout --status`; it should report that nbstripout is installed in this repository. From that point on, every `git commit` of a `.ipynb` file will automatically strip outputs and execution metadata.
+
+If you cloned the repo and made commits *before* activating the filter, re-normalize the affected notebooks:
+
+```bash
+git add --renormalize "*.ipynb"
+git commit -m "chore: strip notebook outputs"
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE) — feel free to use and modify it for your own research or projects.

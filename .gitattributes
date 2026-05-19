@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Strip Jupyter notebook outputs and execution metadata on commit
+# Requires each contributor to install and activate nbstripout locally (see README).
+*.ipynb filter=nbstripout
+*.zpln filter=nbstripout
+*.ipynb diff=ipynb
