@@ -44,6 +44,10 @@ from .xd_set_capacities import xd_set_capacities
 from .xd_csv_prices import xd_csv_prices
 from .get_ic_colors import get_ic_colors
 
+from .csv_energy_balance_helpers import assign_group
+from .csv_energy_balance_helpers import process_group
+from .csv_energy_balance_helpers import apply_global_threshold
+
 from .notebook_common import read_params
 from .notebook_common import load_regions
 from .notebook_common import load_nuts
