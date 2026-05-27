@@ -32,13 +32,14 @@ pypsa-Xplore/
 │
 ├── Xplore_rules/              # Notebooks for main workflow rules (network building process)
 ├── Xplore_rules_heating/      # Notebooks for heating sector rules
-├── Xplore_rules_sectors/      # Notebooks for multi-sector rules
 ├── Xplore_rules_transport/    # Notebooks for transport sector rules
 ├── Xplore_rules_shipping/     # Notebooks for shipping sector rules
 ├── Xplore_rules_biomass/      # Notebooks for biomass sector rules
 ├── Xplore_rules_industry/     # Notebooks for industry sector rules
+├── Xplore_rules_sectors/      # Notebooks for multi-sector rules
 ├── Xplore_data/               # Notebooks for data from PyPSA-Eur
 ├── Xplore_data_ES/            # Notebooks for data from PyPSA-Spain
+├── Xplore_csvs/               # Notebooks for csv data resulting from the optimisation in PyPSA-Spain
 │
 ├── functions/                 # Helper functions for data processing and visualization
 │
