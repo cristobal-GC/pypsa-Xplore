@@ -3,6 +3,8 @@
 import pandas as pd
 import geopandas as gpd
 
+from .energy import snapshot_hours
+
 
 
 def gdf_network_generatorst_p(carrier, n, gdf_regions, resource_class):
@@ -26,7 +28,9 @@ def gdf_network_generatorst_p(carrier, n, gdf_regions, resource_class):
 
     ##### Get df with generationt_p info, and for the selected carrier
     ggt_p = n.generators_t['p'].filter(like=carrier, axis=1)
-    df = ggt_p.sum().to_frame(name='AEP').div(1e6)   # TWh 
+    # Weight by snapshot duration [h] so energy is correct for any temporal resolution
+    energy = ggt_p.multiply(snapshot_hours(n), axis=0).sum()
+    df = energy.to_frame(name='AEP').div(1e6)   # TWh
     # Add bus column taken from n.generators
     df['bus'] = n.generators.loc[df.index]['bus']
    

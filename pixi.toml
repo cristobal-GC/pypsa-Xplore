@@ -1,0 +1,30 @@
+[workspace]
+name = "pypsa-Xplore"
+version = "0.1.0"
+description = "Jupyter notebooks for exploring and visualizing results from PyPSA-X models (PyPSA-Spain, PyPSA-Eur)."
+authors = ["PyPSA-Xplore contributors"]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[dependencies]
+python = ">=3.11,<3.13"
+pypsa = "*"
+pandas = "*"
+numpy = "*"
+geopandas = "*"
+cartopy = "*"
+matplotlib = "*"
+pyyaml = "*"
+jinja2 = "*"          # required by pandas Styler (styled summary tables)
+jupyterlab = "*"
+ipykernel = "*"
+
+[feature.dev.dependencies]
+nbstripout = "*"      # strips notebook outputs before committing (see README)
+
+[environments]
+default = { features = [], solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+
+[tasks]
+lab = "jupyter lab"

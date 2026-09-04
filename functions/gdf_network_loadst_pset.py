@@ -3,6 +3,7 @@
 import pandas as pd
 import re
 
+from .energy import snapshot_hours
 from .filter_columns import filter_df_columns
 from .filter_columns import get_column_patterns
 
@@ -47,8 +48,10 @@ def gdf_network_loadst_pset(n, gdf_regions, load_patterns=None, load_key=None):
     valid_cols = [col for col in selected_cols if col in n.loads.index]
 
     # Aggregate annual load by bus and convert to TWh
+    # Weight by snapshot duration [h] so energy is correct for any temporal resolution
     if len(valid_cols) > 0:
-      df_load = lot_pset[valid_cols].sum(axis=0).to_frame(name='annual_load')
+      energy = lot_pset[valid_cols].multiply(snapshot_hours(n), axis=0).sum(axis=0)
+      df_load = energy.to_frame(name='annual_load')
       df_load['bus'] = n.loads.loc[valid_cols, 'bus'].astype(str).values
 
       # Electricity loads are often attached to "... low voltage" buses,

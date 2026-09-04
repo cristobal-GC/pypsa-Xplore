@@ -57,3 +57,14 @@ from .notebook_common import load_file_yaml
 from .notebook_common import save_figure
 
 
+##### Unified network notebook (Xplore_networks/network.ipynb)
+from .energy import snapshot_hours
+from .resolve_network_source import resolve_network_source
+from .detect_sections import detect_sections
+from .plot_helpers import plot_network_map
+from .plot_helpers import plot_length_hist
+from .plot_helpers import plot_cost_vs_length
+from .plot_helpers import summary_generators_by_carrier
+from .plot_helpers import notify_skipped
+
+
