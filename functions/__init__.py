@@ -66,5 +66,10 @@ from .plot_helpers import plot_length_hist
 from .plot_helpers import plot_cost_vs_length
 from .plot_helpers import summary_generators_by_carrier
 from .plot_helpers import notify_skipped
+from .loads_summary import classify_loads
+from .loads_summary import summary_loads_matrix
+from .loads_summary import plot_loads_matrix
+from .loads_summary import LOAD_CARRIER_MAP
+from .loads_summary import CARRIER_COLORS
 
 
