@@ -10,6 +10,11 @@ from .map_add_features import map_add_features
 from .map_add_region import map_add_region
 
 
+def _is_empty(gdf_regions) -> bool:
+    """True when regions are absent: ``None``, an empty list or an empty GeoDataFrame."""
+    return gdf_regions is None or len(gdf_regions) == 0
+
+
 def plot_network_map(
     n,
     gdf_regions_onshore,
@@ -46,9 +51,13 @@ def plot_network_map(
         boundaries=boundaries,
     )
 
-    ### Add onshore / offshore regions
-    map_add_region(ax, gdf_regions_onshore, params["map_add_region"])
-    map_add_region(ax, gdf_regions_offshore, params["map_add_region"], is_offshore=True)
+    ### Add onshore / offshore regions (skipped when the regions are empty)
+    if not _is_empty(gdf_regions_onshore):
+        map_add_region(ax, gdf_regions_onshore, params["map_add_region"])
+    if not _is_empty(gdf_regions_offshore):
+        map_add_region(
+            ax, gdf_regions_offshore, params["map_add_region"], is_offshore=True
+        )
 
     ### Add map features
     map_add_features(ax, params["map_add_features"])
