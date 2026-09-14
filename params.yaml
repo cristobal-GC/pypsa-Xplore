@@ -21,6 +21,7 @@ map_add_features:
   color_LAND: silver # beige
   color_OCEAN: none
   linewidth: 1
+  scale: 10m # Natural Earth resolution: 10m | 50m | 110m
 
 map_add_features_line:
   color_BORDERS: black
@@ -28,6 +29,7 @@ map_add_features_line:
   color_LAND: none
   color_OCEAN: none
   linewidth: 1
+  scale: 10m # Natural Earth resolution: 10m | 50m | 110m
 
 map_add_region:
   color_onshore: wheat

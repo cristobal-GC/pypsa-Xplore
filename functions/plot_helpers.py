@@ -42,8 +42,13 @@ def plot_network_map(
         )
 
     ### Add network
+    # geomap=False: with geomap=True PyPSA (1.3) reprojects bus coordinates from
+    # cartopy.crs.Projection(n.crs) to the axes' PlateCarree, which shifts every bus
+    # ~0.2 deg (~23 km) southwards. The axes are already PlateCarree (lon/lat degrees),
+    # so the raw x/y are plotted as they are.
     n.plot(
         ax=ax,
+        geomap=False,
         line_widths=line_widths,
         link_widths=link_widths,
         bus_sizes=params["bus_sizes"],
@@ -61,6 +66,9 @@ def plot_network_map(
 
     ### Add map features
     map_add_features(ax, params["map_add_features"])
+
+    ### Frame the map (global cartopy features would otherwise widen the extent)
+    ax.set_extent(boundaries, crs=ccrs.PlateCarree())
 
     return ax
 
