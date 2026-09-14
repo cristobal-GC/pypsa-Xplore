@@ -18,13 +18,7 @@ pyyaml = "*"
 jinja2 = "*"          # required by pandas Styler (styled summary tables)
 jupyterlab = "*"
 ipykernel = "*"
-
-[feature.dev.dependencies]
 nbstripout = "*"      # strips notebook outputs before committing (see README)
-
-[environments]
-default = { features = [], solve-group = "default" }
-dev = { features = ["dev"], solve-group = "default" }
 
 [tasks]
 lab = "jupyter lab"

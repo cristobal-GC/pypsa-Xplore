@@ -23,8 +23,8 @@ pixi install                 # create the default environment
 pixi run lab                 # launch JupyterLab in that environment
 ```
 
-If you plan to commit notebooks, use the `dev` environment instead — it also provides
-`nbstripout` (see [Notebook setup](#notebook-setup-required-before-committing-ipynb-files)).
+The environment also provides `nbstripout`, required if you plan to commit notebooks (see
+[Notebook setup](#notebook-setup-required-before-committing-ipynb-files)).
 
 
 ## Usage
@@ -86,14 +86,14 @@ If you’d like to improve or extend **PyPSA-*X*plore**, feel free to:
 
 This repository uses [`nbstripout`](https://github.com/kynan/nbstripout) to keep Jupyter notebook outputs and execution metadata out of git history. The `*.ipynb filter=nbstripout` binding is already declared in [`.gitattributes`](.gitattributes), but the filter itself must be installed and activated **in each local clone** — otherwise notebooks will be committed with outputs and pollute the diff.
 
-`nbstripout` is provided by the `dev` [pixi](https://pixi.sh) environment. From the root of your clone, run once:
+`nbstripout` is provided by the [pixi](https://pixi.sh) environment. From the root of your clone, run once:
 
 ```bash
-pixi install -e dev
-pixi run -e dev nbstripout --install   # registers the clean/smudge filter in this clone's .git/config
+pixi install
+pixi run nbstripout --install   # registers the clean/smudge filter in this clone's .git/config
 ```
 
-Verify with `pixi run -e dev nbstripout --status`; it should report that nbstripout is installed in this repository. From that point on, every `git commit` of a `.ipynb` file will automatically strip outputs and execution metadata.
+Verify with `pixi run nbstripout --status`; it should report that nbstripout is installed in this repository. From that point on, every `git commit` of a `.ipynb` file will automatically strip outputs and execution metadata.
 
 If you cloned the repo and made commits *before* activating the filter, re-normalize the affected notebooks:
 
