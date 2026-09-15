@@ -18,9 +18,10 @@ def gdf_network_stores(carrier, n, gdf_regions):
       - bus				: is the corresponding network bus map-located
       - carrier
       - area
+      - e_nom           : installed energy capacity [GWh]
       - e_nom_opt       : optimal energy capacity [GWh]
 
-    The gdf is provided in Plate Carrée crs('4326')    
+    The gdf is provided in Plate Carrée crs('4326')
     """
 
     ##### Get df with generators info
@@ -28,9 +29,9 @@ def gdf_network_stores(carrier, n, gdf_regions):
     # filter carrier
     df = st[st['carrier']==carrier]
     # select some relevant columns
-    df = df[['carrier', 'bus', 'e_nom_opt']]
+    df = df[['carrier', 'bus', 'e_nom', 'e_nom_opt']]
     # Put in GWh
-    df['e_nom_opt'] = df['e_nom_opt'].div(1e3)
+    df[['e_nom', 'e_nom_opt']] = df[['e_nom', 'e_nom_opt']].div(1e3)
     # place 'bus' in 'bus_original', and create 'bus' from column index and removing white space + carrier
     # this is to have the samen bus names as in the gdf_regions
     df.rename(columns={'bus': 'bus_original'}, inplace=True)

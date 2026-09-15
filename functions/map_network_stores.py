@@ -11,6 +11,7 @@ def map_network_stores(carrier, n, feature, ax, gdf_regions, params, params_loca
 
     Features:
       - area
+      - e_nom               : installed energy capacity [GWh]
       - e_nom_opt           : optimal energy capacity [GWh]
     """
 
@@ -40,6 +41,10 @@ def map_network_stores(carrier, n, feature, ax, gdf_regions, params, params_loca
     if feature=='area':
         total = gdf[feature].sum()
         ax.set_title(f'Area. Total: {total:.2f} km2')
+
+    if feature=='e_nom':
+        total = gdf[feature].sum()
+        ax.set_title(f'{carrier} : Installed energy storage. Total: {total:.2f} GWh')
 
     if feature=='e_nom_opt':
         total = gdf[feature].sum()
