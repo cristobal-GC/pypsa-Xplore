@@ -48,8 +48,9 @@ from .loads_summary import plot_loads_matrix
 from .loads_summary import LOAD_CARRIER_MAP
 from .loads_summary import CARRIER_COLORS
 
-##### Capacities (Analysis)
-from .df_network_capacities import df_network_capacities
+##### Analysis (solved network)
+from .capacities import summary_electric_capacities
+from .system_costs import summary_system_costs
 
 ##### Energy balance CSVs (Xplore_csvs/energy_balance.ipynb)
 from .csv_energy_balance_helpers import assign_group

@@ -182,9 +182,9 @@ def _gdf_generatorst_p(carrier, n, gdf_regions, resource_class):
     gg = _generators_of(n, carrier, resource_class)
     gg["region"] = _region_of(gg["bus"], gdf_regions["name"])
 
-    # Weight by snapshot duration [h] so energy is correct for any temporal resolution
-    ts = n.generators_t["p"].reindex(columns=gg.index)
-    gg["AEP"] = ts.multiply(snapshot_hours(n), axis=0).sum() / 1e6   # TWh
+    # energy supplied by each generator, weighted by snapshot duration
+    supply = n.statistics.supply(components="Generator", groupby=False, nice_names=False)
+    gg["AEP"] = supply.reindex(gg.index).fillna(0.0) / 1e6   # TWh
 
     return _merge_regions(gdf_regions, gg.groupby("region")[["AEP"]].sum())
 

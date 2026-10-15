@@ -129,7 +129,7 @@ def summary_generators_t_by_resource_class(
 
     feature:
       - CF  : mean of generators_t['p_max_pu'] (available capacity factor) [-]
-      - AEP : energy from the dispatch generators_t['p'] (solved network only), in
+      - AEP : energy supplied in the dispatch, n.statistics.supply (solved network only), in
               ``units`` (MWh | GWh | TWh)
 
     Both are weighted by the snapshot duration, so they are correct for any temporal
@@ -152,8 +152,9 @@ def summary_generators_t_by_resource_class(
         gg["CF"] = ts.multiply(hours, axis=0).sum() / hours.sum()
         color, ylabel, caption = "#bc91d8", "CF", f"CF for {carrier}"
     else:
-        ts = n.generators_t["p"].reindex(columns=gg.index)
-        gg["AEP"] = ts.multiply(hours, axis=0).sum() / factors[units]
+        # energy supplied by each generator [MWh], weighted by snapshot duration
+        supply = n.statistics.supply(components="Generator", groupby=False, nice_names=False)
+        gg["AEP"] = supply.reindex(gg.index).fillna(0.0) / factors[units]
         color, ylabel, caption = "#93c543", f"AEP [{units}]", f"AEP [{units}] for {carrier}"
 
     #################### Bar plot
