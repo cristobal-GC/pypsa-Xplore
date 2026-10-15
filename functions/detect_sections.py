@@ -44,9 +44,13 @@ def detect_sections(n: pypsa.Network) -> dict:
         "solved": _has_varying(n, "generators_t", "p"),
     }
 
-    # Interconnections analysis (PyPSA-Spain): border links named *export*/*import*
+    # Interconnections analysis (PyPSA-Spain): border links named *export*/*import*.
+    # It plots their flows (links_t['p0']), so it needs a solved network: the composed
+    # network already has the border links, but no dispatch yet.
     sections["interconnections"] = (
-        sections["links"] and bool(n.links.index.str.contains("export").any())
+        sections["links"]
+        and _has_varying(n, "links_t", "p0")
+        and bool(n.links.index.str.contains("export").any())
     )
 
     return sections

@@ -64,11 +64,12 @@ Each notebook in `Xplore_rules*/` corresponds to a rule from the model workflow.
 
 ### Unified network notebook
 
-[`Xplore_networks/network.ipynb`](Xplore_networks/network.ipynb) replaces the seven
-network-building notebooks in `Xplore_rules/` (`base_network` → `solve_sector_network`) with a
-single one. In the *Parameters* cell you choose the `rule` (plus `clusters/opts/sector_opts/horizon`
-as needed) and the notebook loads the matching network. Sections are **auto-detected** from the
-loaded network, so only the ones that make sense for that state run.
+[`Xplore_networks/network.ipynb`](Xplore_networks/network.ipynb) analyses the network at any
+stage of the streamlined workflow (`base_network` → `simplify_network` → `cluster_network` →
+`compose_network` → `solve_network`, plus the optional `solve_operations_network`). In the
+*Parameters* cell you choose the `rule` (plus the run `name`/`prefix` and the planning `horizon`
+for the composed/solved networks) and the notebook loads the matching network. Sections are
+**auto-detected** from the loaded network, so only the ones that make sense for that state run.
 
 Map boundaries are taken from `params.yaml` (`boundaries_offshore_<spatial_domain>`), selected
 with the `spatial_domain` tag (`'ES'`, `'EU'`, ...). It does **not** use NUTS files (no

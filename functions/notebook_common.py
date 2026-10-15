@@ -19,15 +19,23 @@ def load_regions(
     prefix: str = "",
     name: str = "",
     region_tag: Optional[str] = None,
+    filenames: Optional[Tuple[str, str]] = None,
 ) -> Tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
-    """Load onshore/offshore region files from resources folder."""
+    """Load onshore/offshore region files from resources folder.
+
+    ``filenames`` = (onshore, offshore) gives the file names explicitly (streamlined
+    workflow, e.g. from ``resolve_network_source``) and takes precedence over
+    ``region_tag``, which builds the legacy ``regions_onshore_<tag>.geojson`` names.
+    """
     base_dir = Path(params["rootpath"]) / "resources"
     if prefix:
         base_dir = base_dir / prefix
     if name:
         base_dir = base_dir / name
 
-    if region_tag:
+    if filenames:
+        file_regions_onshore, file_regions_offshore = filenames
+    elif region_tag:
         file_regions_onshore = f"regions_onshore_{region_tag}.geojson"
         file_regions_offshore = f"regions_offshore_{region_tag}.geojson"
     else:
