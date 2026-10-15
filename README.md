@@ -73,7 +73,7 @@ for the composed/solved networks) and the notebook loads the matching network. S
 
 Map boundaries are taken from `params.yaml` (`boundaries_offshore_<spatial_domain>`), selected
 with the `spatial_domain` tag (`'ES'`, `'EU'`, ...). It does **not** use NUTS files (no
-NUTS-level aggregation maps). The original per-rule notebooks are kept unchanged.
+NUTS-level aggregation maps).
 
 
 ## Contributing
@@ -91,8 +91,10 @@ This repository uses [`nbstripout`](https://github.com/kynan/nbstripout) to keep
 
 ```bash
 pixi install
-pixi run nbstripout --install   # registers the clean/smudge filter in this clone's .git/config
+pixi run setup-nbstripout      # registers the clean/smudge filter in this clone's .git/config
 ```
+
+The `setup-nbstripout` task (defined in [`pixi.toml`](pixi.toml)) runs `nbstripout --install` and also configures the filter to strip kernel metadata that varies between machines (`kernelspec.display_name`, `language_info.version`), so switching kernels does not show up as a diff.
 
 Verify with `pixi run nbstripout --status`; it should report that nbstripout is installed in this repository. From that point on, every `git commit` of a `.ipynb` file will automatically strip outputs and execution metadata.
 

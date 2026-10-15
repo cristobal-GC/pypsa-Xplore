@@ -76,31 +76,3 @@ map_network_stores:
   lw: 0.2
 
 
-
-##### functions: map_NUTS_...
-map_NUTS_generators:
-  cmap: viridis
-  edgecolor: black
-  lw: 0.2
-
-map_NUTS_links:
-  cmap: Reds
-  edgecolor: black
-  lw: 0.2
-
-map_NUTS_loadst_pset:
-  cmap: cividis
-  edgecolor: black
-  lw: 0.2
-
-map_NUTS_storage_units:
-  cmap: viridis
-  edgecolor: black
-  lw: 0.2
-
-map_NUTS_stores:
-  cmap: Blues
-  edgecolor: black
-  lw: 0.2
-
-

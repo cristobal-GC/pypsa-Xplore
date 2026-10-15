@@ -1,6 +1,6 @@
 
 
-from typing import Optional, Sequence
+from typing import Sequence
 
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
@@ -101,14 +101,6 @@ def plot_cost_vs_length(
     ratio = (df[y] / df[x]).round(2).unique()
     print(f"The ratio values of capital cost vs. length are {ratio} {unit}")
     return ax
-
-
-def summary_generators_by_carrier(n) -> pd.DataFrame:
-    """Aggregated and potential capacity per generator carrier [same units as p_nom]."""
-    return n.generators.groupby("carrier").agg(
-        Total_capacity=pd.NamedAgg(column="p_nom", aggfunc="sum"),
-        Total_max_capacity=pd.NamedAgg(column="p_nom_max", aggfunc="sum"),
-    )
 
 
 def notify_skipped(section: str) -> None:

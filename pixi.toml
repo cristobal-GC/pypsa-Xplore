@@ -22,3 +22,6 @@ nbstripout = "*"      # strips notebook outputs before committing (see README)
 
 [tasks]
 lab = "jupyter lab"
+# Registers the nbstripout git filter in this clone (.git/config is not versioned)
+# and also strips kernel metadata that varies between machines.
+setup-nbstripout = "nbstripout --install && git config filter.nbstripout.extrakeys 'metadata.kernelspec.display_name metadata.language_info.version'"
