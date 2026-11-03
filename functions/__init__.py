@@ -52,6 +52,13 @@ from .loads_summary import CARRIER_COLORS
 from .capacities import summary_electric_capacities
 from .system_costs import summary_system_costs
 
+##### Interconnections (solved network)
+from .interconnections import plot_interconnections_energy
+from .interconnections import plot_interconnections_timeseries
+from .interconnections import plot_interconnections_heatmap
+from .interconnections import summary_interconnections_trade
+from .interconnections import summary_interconnections_gain
+
 ##### Energy balance CSVs (Xplore_csvs/energy_balance.ipynb)
 from .csv_energy_balance_helpers import assign_group
 from .csv_energy_balance_helpers import process_group

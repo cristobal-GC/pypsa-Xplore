@@ -45,30 +45,32 @@ def _generators_by_resource_class(n, carrier: str) -> pd.DataFrame:
     return gg
 
 
-def _bars_by_bus_and_class(df: pd.DataFrame, colors: dict, ylabel: str, width: float):
-    """Grouped bar plot: one group per bus, one bar per resource class; for each
-    class, one bar per column in ``colors`` (drawn in that order, overlapping)."""
+def _bars_by_bus_and_class(df: pd.DataFrame, colors: dict, xlabel: str, width: float):
+    """Grouped horizontal bar plot: one group per bus (first bus on top), one bar per
+    resource class; for each class, one bar per column in ``colors`` (drawn in that
+    order, overlapping)."""
     df_sorted = df.sort_values(["bus", "resource_class"])
     buses = df_sorted["bus"].unique()
     resources = df_sorted["resource_class"].unique()
-    x = np.arange(len(buses))
+    y = np.arange(len(buses))
     offsets = np.linspace(-width / 2.5, width / 2.5, len(resources))
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, max(8, 0.4 * len(buses))))
     labels_added = set()
     for i, res in enumerate(resources):
         df_res = df_sorted[df_sorted["resource_class"] == res].set_index("bus").reindex(buses)
         for metric, color in colors.items():
             label = metric if metric not in labels_added else None
-            ax.bar(x + offsets[i], df_res[metric], width=width / len(resources),
-                   color=color, alpha=0.7, label=label)
+            ax.barh(y + offsets[i], df_res[metric], height=width / len(resources),
+                    color=color, alpha=0.7, label=label)
             labels_added.add(metric)
-    ax.set_xticks(x)
-    ax.set_xticklabels(buses, fontsize=14)
-    ax.grid(axis="y", linestyle="--", alpha=0.6)
-    ax.set_xlabel("Bus", fontsize=16)
-    ax.set_ylabel(ylabel, fontsize=16)
-    ax.tick_params(axis="y", labelsize=14)
+    ax.set_yticks(y)
+    ax.set_yticklabels(buses, fontsize=14)
+    ax.invert_yaxis()
+    ax.grid(axis="x", linestyle="--", alpha=0.6)
+    ax.set_ylabel("Bus", fontsize=16)
+    ax.set_xlabel(xlabel, fontsize=16)
+    ax.tick_params(axis="x", labelsize=14)
     ax.legend(fontsize=14)
     plt.tight_layout()
     return ax
@@ -84,7 +86,7 @@ def summary_generators_by_resource_class(
     """Capacities of a solar/wind ``carrier`` per bus and resource class, in ``units``
     (MW | GW | TW).
 
-    Draws a bar plot with p_nom_max, p_nom_opt and p_nom per bus and class, and returns
+    Draws a horizontal bar plot with p_nom_max, p_nom_opt and p_nom per bus and class, and returns
     a styled table of ``feature`` (p_nom | p_nom_max | p_nom_opt) by bus (rows) and
     class (columns). p_nom_opt is only filled once the network is solved (zero before).
     Returns None if the carrier has no resource classes.
@@ -105,7 +107,7 @@ def summary_generators_by_resource_class(
     #################### Bar plot
     _bars_by_bus_and_class(
         gg, {"p_nom_max": "#cfe2f3", "p_nom_opt": "#4daf4a", "p_nom": "#08306b"},
-        ylabel=f"Capacity [{units}]", width=width,
+        xlabel=f"Capacity [{units}]", width=width,
     )
 
     #################### Table
@@ -133,7 +135,7 @@ def summary_generators_t_by_resource_class(
               ``units`` (MWh | GWh | TWh)
 
     Both are weighted by the snapshot duration, so they are correct for any temporal
-    resolution. Draws a bar plot and returns a styled table by bus (rows) and class
+    resolution. Draws a horizontal bar plot and returns a styled table by bus (rows) and class
     (columns). Returns None if the carrier has no resource classes.
     """
     factors = {"MWh": 1, "GWh": 1e3, "TWh": 1e6}
@@ -150,15 +152,15 @@ def summary_generators_t_by_resource_class(
     if feature == "CF":
         ts = n.generators_t["p_max_pu"].reindex(columns=gg.index)
         gg["CF"] = ts.multiply(hours, axis=0).sum() / hours.sum()
-        color, ylabel, caption = "#bc91d8", "CF", f"CF for {carrier}"
+        color, xlabel, caption = "#bc91d8", "CF", f"CF for {carrier}"
     else:
         # energy supplied by each generator [MWh], weighted by snapshot duration
         supply = n.statistics.supply(components="Generator", groupby=False, nice_names=False)
         gg["AEP"] = supply.reindex(gg.index).fillna(0.0) / factors[units]
-        color, ylabel, caption = "#93c543", f"AEP [{units}]", f"AEP [{units}] for {carrier}"
+        color, xlabel, caption = "#93c543", f"AEP [{units}]", f"AEP [{units}] for {carrier}"
 
     #################### Bar plot
-    _bars_by_bus_and_class(gg, {feature: color}, ylabel=ylabel, width=width)
+    _bars_by_bus_and_class(gg, {feature: color}, xlabel=xlabel, width=width)
 
     #################### Table
     return (
